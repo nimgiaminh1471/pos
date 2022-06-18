@@ -8,8 +8,8 @@ return [
     */
 
     'invoice'                => 'Hóa đơn',
-    'serial'                 => 'Mã đơn hàng.',
-    'date'                   => 'Ngày mua hàng',
+    'serial'                 => 'Mã đơn hàng:',
+    'date'                   => 'Ngày mua',
     'seller'                 => 'Người bán',
     'buyer'                  => 'Người mua',
     'address'                => 'Địa chỉ',

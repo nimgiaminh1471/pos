@@ -129,49 +129,14 @@
     </head>
 
     <body>
-        <table class="table mt-5">
-            <tbody>
-                @if($invoice->logo)
-                <tr>
-                    <td class="border-0 pl-0 text-center" width="100%" colspan="2">
-                        <img src="{{ $invoice->getLogo() }}" alt="logo" height="180">
-                    </td>
-                </tr>
-                @endif
-                <tr>
-                    <td class="border-0 pl-0" width="40%">
-                        <h4 class="text-uppercase">
-                            <strong>{{ $invoice->name }}</strong>
-                        </h4>
-                    </td>
-                    <td class="border-0 pl-0">
-                        @if($invoice->status)
-                            <h4 class="text-uppercase cool-gray">
-                                <strong>{{ $invoice->status }}</strong>
-                            </h4>
-                        @endif
-                        <p>{{ __('invoices::invoice.serial') }} <strong>{{ $invoice->getSerialNumber() }}</strong></p>
-                        <p>{{ __('invoices::invoice.date') }}: <strong>{{ $invoice->getDate() }}</strong></p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        {{-- Seller - Buyer --}}
         <table class="table">
-            <thead>
-                <tr>
-                    <th class="border-0 pl-0 party-header" width="48.5%">
-                        {{ __('invoices::invoice.seller') }}
-                    </th>
-                    <th class="border-0" width="3%"></th>
-                    <th class="border-0 pl-0 party-header">
-                        {{ __('invoices::invoice.buyer') }}
-                    </th>
-                </tr>
-            </thead>
             <tbody>
                 <tr>
+                    <td class="border-0 pl-0" width="30%">
+                        @if($invoice->logo)
+                        <img src="{{ $invoice->getLogo() }}" alt="logo" height="180">
+                        @endif
+                    </td>
                     <td class="px-0">
                         @if($invoice->seller->name)
                             <p class="seller-name">
@@ -209,7 +174,24 @@
                             </p>
                         @endforeach
                     </td>
-                    <td class="border-0"></td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td class="border-0 pl-0" width="50%">
+                        <h4 class="text-uppercase">
+                            <strong>{{ $invoice->name }}</strong>
+                        </h4>
+                        @if($invoice->status)
+                            <h4 class="text-uppercase cool-gray">
+                                <strong>{{ $invoice->status }}</strong>
+                            </h4>
+                        @endif
+                        <p>{{ __('invoices::invoice.serial') }} <strong>{{ $invoice->getSerialNumber() }}</strong></p>
+                        <p>{{ __('invoices::invoice.date') }}: <strong>{{ $invoice->getDate() }}</strong></p>
+                    </td>
                     <td class="px-0">
                         @if($invoice->buyer->name)
                             <p class="buyer-name">
