@@ -13,7 +13,8 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laraveldaily/laravel-invoices": "^3.0",
-        "livewire/livewire": "^2.5"
+        "livewire/livewire": "^2.5",
+        "rappasoft/laravel-livewire-tables": "^2.7"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

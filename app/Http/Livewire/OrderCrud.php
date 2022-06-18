@@ -9,14 +9,9 @@ use Livewire\WithPagination;
 class OrderCrud extends Component
 {
     use WithPagination;
-    public $orders = [];
     public function render()
     {
-        $this->orders = Order::paginate(1)->all();
-        return view('livewire.order-crud',[
-            'paginate' => Order::paginate(1),
-            'total' => Order::get()->sum('total')
-        ]);
+        return view('livewire.order-crud');
     }
 
     public function delete($id)

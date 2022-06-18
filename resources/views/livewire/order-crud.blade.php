@@ -14,34 +14,7 @@
                 </div>
             </div>
             @endif
-            Tổng kết: {{ number_format($total, 0, ',', '.') }}
-
-            <table class="table-fixed w-full">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="px-4 py-2 w-20">Số ID</th>
-                        <th class="px-4 py-2">Tổng đơn hàng</th>
-                        <th class="px-4 py-2">Hình thức thanh toán</th>
-                        <th class="px-4 py-2">Ngày mua hàng</th>
-                        <th class="px-4 py-2">Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($orders as $order)
-                    <tr>
-                        <td class="border px-4 py-2">{{ $order->id }}</td>
-                        <td class="border px-4 py-2">{{ number_format($order->total, 0, ',', '.') }}</td>
-                        <td class="border px-4 py-2">{{ getMethodName($order->payment_method) }}</td>
-                        <td class="border px-4 py-2">{{ $order->created_at }}</td>
-                        <td class="border px-4 py-2">
-                            <button wire:click="delete({{ $order->id }})"
-                                class="flex px-4 py-2 bg-red-100 text-gray-900 cursor-pointer">Xóa</button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            {{ $paginate->links() }}
+            <livewire:order-table />
         </div>
     </div>
 </div>
