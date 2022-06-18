@@ -377,6 +377,10 @@
             </p>
         @endforeach
 
+        <p>
+            Xin cảm ơn Quý khách đã tin tưởng và sử dụng dịch vụ tại Mr.Bự !!! Xin chào và hẹn gặp lại.
+        </p>
+
         <script type="text/php">
             if (isset($pdf) && $PAGE_COUNT > 1) {
                 $text = "Page {PAGE_NUM} / {PAGE_COUNT}";

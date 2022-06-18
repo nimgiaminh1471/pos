@@ -1,6 +1,6 @@
 <div class="flex flex-grow flex-col h-screen">
     <!-- store menu -->
-    <div class="flex flex-col bg-blue-gray-50 h-full py-4">
+    <div class="flex flex-col bg-blue-gray-50 h-full">
         <div class="h-full overflow-hidden mt-4">
             <div class="h-full overflow-y-auto px-2">
                 @if(count($products) <= 0) 
@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 @else
-                <div class="grid grid-cols-3 gap-3 pb-3">
+                <div class="grid grid-cols-3 gap-3 py-3 px-3 bg-blue-gray-100 rounded-3xl">
                     @foreach($products as $product)
                     <div wire:click="addToCart({{ $product->id }})"  class="select-none cursor-pointer transition-shadow overflow-hidden rounded-2xl bg-white shadow hover:shadow-lg" wire:key="product_{{ $product->id }}" >
                         <img src="{{ asset('storage/' .$product->image) }}">
