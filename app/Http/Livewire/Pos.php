@@ -19,6 +19,7 @@ class Pos extends Component
     public $customer = 0;
     public $customer_name = 'Khách vãng lai';
     public $customer_phone = '';
+    public $customer_note = '';
 
     public function render()
     {
@@ -43,6 +44,7 @@ class Pos extends Component
                 $cus = Customer::where('id', $this->customer)->first();
                 $this->customer_name = $cus->name;
                 $this->customer_phone = $cus->phone;
+                $this->customer_note = $cus->note;
             }
         }
         return view('livewire.pos')->layout('layouts.pos');
@@ -86,11 +88,13 @@ class Pos extends Component
             $order = new Order();
             $order->total = $this->total;
             $order->payment_method = $payment_method;
+            $order->customer_id = $this->customer;
             $order->save();
 
             $customer = new Buyer([
                 'name'          => $this->customer_name,
                 'phone'          => $this->customer_phone,
+                'note'          => $this->customer_note,
             ]);
     
             $invoice = Invoice::make()
