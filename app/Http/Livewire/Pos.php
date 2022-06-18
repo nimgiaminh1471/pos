@@ -12,8 +12,6 @@ use LaravelDaily\Invoices\Classes\InvoiceItem;
 
 class Pos extends Component
 {
-    public $products, $cart, $total;
-
     public function render()
     {
         $this->products = Product::all();

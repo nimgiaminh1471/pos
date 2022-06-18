@@ -1,5 +1,5 @@
 @desktop
-    @livewire('pos-desktop')
+    @include('livewire.pos-desktop')
 @elsedesktop
-    @livewire('pos-mobile')
+    @include('livewire.pos-mobile')
 @enddesktop
