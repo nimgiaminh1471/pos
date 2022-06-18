@@ -78,9 +78,9 @@ return [
          * Default attributes for Seller::class
          */
         'attributes' => [
-            'name'          => 'Quân mập địt',
-            'address'       => 'Địa chỉ nè',
-            'phone'         => '0123456789',
+            'name'          => 'Mr Bự - Sneaker Spa',
+            'address'       => '42 Nguyễn Văn Trỗi, P.4, Tp. Vũng Tàu',
+            'phone'         => '0777.729.933 - 0937.135.435',
             'custom_fields' => [
                 /*
                  * Custom attributes for Seller::class
@@ -89,6 +89,7 @@ return [
                  * attribute => value
                  */
                 // 'SWIFT' => 'BANK101',
+                'Website' => 'www.mrbusneaker.com',
             ],
         ],
     ],

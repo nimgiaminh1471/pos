@@ -18,7 +18,7 @@
                 color: #212529;
                 text-align: left;
                 background-color: #fff;
-                font-size: 10px;
+                font-size: 20px;
                 margin: 36pt;
             }
 
@@ -116,7 +116,7 @@
                 font-weight: 400;
             }
             .total-amount {
-                font-size: 12px;
+                font-size: 22px;
                 font-weight: 700;
             }
             .border-0 {
@@ -129,15 +129,17 @@
     </head>
 
     <body>
-        {{-- Header --}}
-        @if($invoice->logo)
-            <img src="{{ $invoice->getLogo() }}" alt="logo" height="100">
-        @endif
-
         <table class="table mt-5">
             <tbody>
+                @if($invoice->logo)
                 <tr>
-                    <td class="border-0 pl-0" width="70%">
+                    <td class="border-0 pl-0 text-center" width="100%" colspan="2">
+                        <img src="{{ $invoice->getLogo() }}" alt="logo" height="180">
+                    </td>
+                </tr>
+                @endif
+                <tr>
+                    <td class="border-0 pl-0" width="50%">
                         <h4 class="text-uppercase">
                             <strong>{{ $invoice->name }}</strong>
                         </h4>
