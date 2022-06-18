@@ -13,6 +13,7 @@ use LaravelDaily\Invoices\Classes\InvoiceItem;
 class PosMobile extends Component
 {
     public $products, $cart, $total;
+    public $isModalOpen = 0;
 
     public function render()
     {

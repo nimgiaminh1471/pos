@@ -1,4 +1,7 @@
 <div class="flex flex-row h-screen antialiased text-blue-gray-800">
+    @if($isModalOpen)
+        @include('livewire.pos-choose-customer')
+    @endif
     <!-- left sidebar -->
     <div class="flex flex-row w-auto flex-shrink-0 pl-4 pr-2 py-4">
         <div class="flex flex-col items-center py-4 flex-shrink-0 w-20 bg-cyan-500 rounded-3xl">
@@ -96,9 +99,9 @@
                             <div class="text-center absolute bg-cyan-500 text-white w-5 h-5 text-xs p-0 leading-5 rounded-full -right-2 top-3">{{ count($cart) }}</div>
                         </div>
                         <div class="flex-grow px-8 text-right text-lg py-4 relative">
-                            <button x-on:click="clear()" class="text-blue-gray-300 hover:text-pink-500 focus:outline-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            <button wire:click="addCustomer()" class="text-blue-gray-300 hover:text-pink-500 focus:outline-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                                 </svg>
                             </button>
                         </div>
@@ -136,6 +139,10 @@
 
                 <!-- payment info -->
                 <div class="select-none h-auto w-full text-center pt-3 pb-4 px-4">
+                    <div class="flex mb-3 font-semibold text-blue-gray-700">
+                        <div class="text-left py-4 relative">Khách hàng: </div>
+                        <div class="flex-grow text-right py-4 relative">{{ $customer_name }}</div>
+                    </div>
                     <div class="flex mb-3 text-lg font-semibold text-blue-gray-700">
                         <div>TOTAL</div>
                         <div class="text-right w-full">{{ number_format($total, 0, ',', '.') }}</div>

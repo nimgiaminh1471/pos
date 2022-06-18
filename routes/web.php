@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\CustomerCrud;
 use App\Http\Livewire\OrderCrud;
 use App\Http\Livewire\Pos;
 use App\Http\Livewire\PosMobile;
@@ -32,4 +33,5 @@ Route::middleware([
     Route::get('dashboard', Pos::class)->name('dashboard');
     Route::get('products', ProductCrud::class)->name('product');
     Route::get('orders', OrderCrud::class)->name('order');
+    Route::get('customers', CustomerCrud::class)->name('customer');
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
@@ -12,9 +13,17 @@ use LaravelDaily\Invoices\Classes\InvoiceItem;
 
 class Pos extends Component
 {
+    public $products, $cart, $total;
+    public $isModalOpen = 0;
+    public $customers;
+    public $customer = 0;
+    public $customer_name = 'Khách vãng lai';
+    public $customer_phone = '';
+
     public function render()
     {
         $this->products = Product::all();
+        $this->customers = Customer::all();
         $cart = session('cart', []);
         $this->total = 0;
         if (count($cart) > 0) {
@@ -28,9 +37,16 @@ class Pos extends Component
             }
         }
         $this->cart = $cart;
+        if(session('customer')){
+            $this->customer = session('customer');
+            if($this->customer != 0){
+                $cus = Customer::where('id', $this->customer)->first();
+                $this->customer_name = $cus->name;
+                $this->customer_phone = $cus->phone;
+            }
+        }
         return view('livewire.pos')->layout('layouts.pos');
     }
-
 
     public function addToCart($product_id)
     {
@@ -73,7 +89,8 @@ class Pos extends Component
             $order->save();
 
             $customer = new Buyer([
-                'name'          => 'Khách vãng lai',
+                'name'          => $this->customer_name,
+                'phone'          => $this->customer_phone,
             ]);
     
             $invoice = Invoice::make()
@@ -92,9 +109,29 @@ class Pos extends Component
             }
             
             session()->forget('cart');
+            session()->forget('customer');
+            $this->customer = 0;
             return response()->streamDownload(function () use($invoice) {
                 echo  $invoice->stream();
             }, 'invoice.pdf');
         }
+    }
+
+    public function addCustomer(){
+        $this->isModalOpen = true;
+    }
+
+    public function closeModalPopover()
+    {
+        $this->isModalOpen = false;
+    }
+
+    public function cusChange(){
+        session()->put('customer', $this->customer);
+    }
+
+    public function choose()
+    {
+        $this->isModalOpen = false;
     }
 }
