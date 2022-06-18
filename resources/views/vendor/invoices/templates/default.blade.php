@@ -355,15 +355,11 @@
             {{ trans('invoices::invoice.amount_in_words') }}: {{ $invoice->getTotalAmountInWords() }}
         </p>
 
-       
-        @foreach($invoice->getCustomData() as $key => $value)
-            <p class="seller-custom-field">
-                {{ trans('invoices::invoice.' . $key) }}: {{ ($key == "payment_method") ? getMethodName($value) : $value }}
-            </p>
-        @endforeach
-
         <p>
-            Xin cảm ơn Quý khách đã tin tưởng và sử dụng dịch vụ tại Mr.Bự !!! Xin chào và hẹn gặp lại.
+            Xin cảm ơn Quý khách đã tin tưởng và sử dụng dịch vụ tại Mr.Bự !!! 
+        </p>
+        <p class="w-full text-center">
+            Xin chào và hẹn gặp lại.
         </p>
 
         <script type="text/php">

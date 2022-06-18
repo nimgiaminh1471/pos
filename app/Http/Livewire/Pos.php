@@ -99,7 +99,7 @@ class Pos extends Component
     
             $invoice = Invoice::make()
                 ->sequence($order->id)
-                ->setCustomData(['payment_method' => $payment_method])
+                // ->setCustomData(['payment_method' => $payment_method])
                 ->logo(public_path('images/logo.png'))
                 ->buyer($customer);
             foreach ($this->cart as $index => $item){
