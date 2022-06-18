@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\OrderCrud;
 use App\Http\Livewire\Pos;
+use App\Http\Livewire\PosMobile;
 use App\Http\Livewire\ProductCrud;
 use Illuminate\Support\Facades\Route;
 
