@@ -139,7 +139,7 @@
                 </tr>
                 @endif
                 <tr>
-                    <td class="border-0 pl-0" width="50%">
+                    <td class="border-0 pl-0" width="40%">
                         <h4 class="text-uppercase">
                             <strong>{{ $invoice->name }}</strong>
                         </h4>
