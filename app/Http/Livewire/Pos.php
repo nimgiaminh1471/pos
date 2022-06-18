@@ -2,7 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Product;
 use Livewire\Component;
+use LaravelDaily\Invoices\Invoice;
+use LaravelDaily\Invoices\Classes\Buyer;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
 
 class Pos extends Component
 {
