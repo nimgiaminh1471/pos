@@ -129,7 +129,7 @@
     </head>
 
     <body>
-        <table class="table">
+        <table class="table mt-5">
             <tbody>
                 <tr>
                     <td class="border-0 pl-0" width="30%">
@@ -193,6 +193,9 @@
                         <p>{{ __('invoices::invoice.date') }}: <strong>{{ $invoice->getDate() }}</strong></p>
                     </td>
                     <td class="px-0">
+                        <h4 class="text-uppercase">
+                            <strong>{{ __('invoices::invoice.buyer') }}</strong>
+                        </h4>
                         @if($invoice->buyer->name)
                             <p class="buyer-name">
                                 <strong>{{ $invoice->buyer->name }}</strong>
