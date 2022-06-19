@@ -19,7 +19,7 @@ class Pos extends Component
     public $customer = 0;
     public $customer_name = 'Khách vãng lai';
     public $customer_phone = '';
-    public $customer_note = '';
+    public $customer_note = null;
 
     public function render()
     {

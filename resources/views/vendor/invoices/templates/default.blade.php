@@ -125,6 +125,12 @@
             .cool-gray {
                 color: #6B7280;
             }
+            .buyer-name{
+                font-size: 30px;
+            }
+            .buyer-phone {
+                font-size: 30px;
+            }
         </style>
     </head>
 
@@ -180,7 +186,7 @@
         <table class="table">
             <tbody>
                 <tr>
-                    <td class="border-0 pl-0" width="50%">
+                    <td class="border-0 pl-0" width="30%">
                         <h4 class="text-uppercase">
                             <strong>{{ $invoice->name }}</strong>
                         </h4>
