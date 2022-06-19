@@ -11,7 +11,7 @@ return [
     'serial'                 => 'Mã đơn hàng:',
     'date'                   => 'Ngày mua',
     'seller'                 => 'Người bán',
-    'buyer'                  => 'Người mua',
+    'buyer'                  => 'Tên KH',
     'address'                => 'Địa chỉ',
     'code'                   => 'Code',
     'vat'                    => 'VAT code',
