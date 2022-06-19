@@ -119,7 +119,7 @@ class Pos extends Component
             $this->customer = 0;
             return response()->streamDownload(function () use($invoice) {
                 echo  $invoice->stream();
-            }, $order->id . $this->customer_name . '.pdf');
+            }, $invoice->getSerialNumber() . '_' .$this->customer_name . '.pdf');
         }
     }
 
