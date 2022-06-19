@@ -94,7 +94,9 @@ class Pos extends Component
             $customer = new Buyer([
                 'name'          => $this->customer_name,
                 'phone'          => $this->customer_phone,
-                'note'          => $this->customer_note,
+                'custom_fields' => [
+                    'note' => $this->customer_note
+                ]
             ]);
     
             $invoice = Invoice::make()
@@ -117,7 +119,7 @@ class Pos extends Component
             $this->customer = 0;
             return response()->streamDownload(function () use($invoice) {
                 echo  $invoice->stream();
-            }, 'invoice.pdf');
+            }, $order->id . $this->customer_name . '.pdf');
         }
     }
 
