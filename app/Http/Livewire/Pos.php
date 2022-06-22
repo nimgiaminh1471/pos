@@ -10,6 +10,7 @@ use Livewire\Component;
 use LaravelDaily\Invoices\Invoice;
 use LaravelDaily\Invoices\Classes\Buyer;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
+use Illuminate\Support\Str;
 
 class Pos extends Component
 {
@@ -119,7 +120,7 @@ class Pos extends Component
             $this->customer = 0;
             return response()->streamDownload(function () use($invoice) {
                 echo  $invoice->stream();
-            }, $invoice->getSerialNumber() . '_' .$this->customer_name . '.pdf');
+            }, $invoice->getSerialNumber() . '_' . Str::slug($this->customer_name) . '.pdf');
         }
     }
 

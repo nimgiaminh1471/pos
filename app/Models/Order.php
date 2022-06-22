@@ -10,6 +10,10 @@ class Order extends Model
     use HasFactory;
 
     public function order_detail(){
-        return $this->hasMany(OrderDetail::class, 'order_id');
+        return $this->hasMany(OrderDetail::class, 'order_id')->withTrashed();
+    }
+
+    public function customer(){
+        return $this->belongsTo(Customer::class, 'customer_id')->withTrashed();
     }
 }
