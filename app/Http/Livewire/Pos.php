@@ -112,7 +112,7 @@ class Pos extends Component
                 $order_detail->quantity = $item['quantity'];
                 $order_detail->price = $item['price'];
                 $order_detail->save();
-                $invoice->addItem((new InvoiceItem())->title($item['name'])->pricePerUnit($item['price']));
+                $invoice->addItem((new InvoiceItem())->title($item['name'])->pricePerUnit($item['price'])->quantity($item['quantity']));
             }
             
             session()->forget('cart');

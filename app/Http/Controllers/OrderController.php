@@ -15,17 +15,16 @@ class OrderController extends Controller
     //
     public function printOrder($id){
         $order = Order::findOrFail($id);
-
         $customer = $order->customer;
         $customer_name = "Khách vãng lai";
 
         if($customer){
-            $customer_name = $customer->customer_name;
+            $customer_name = $customer->name;
             $customer_invoice = new Buyer([
-                'name'          => $customer->customer_name,
-                'phone'          => $customer->customer_phone,
+                'name'          => $customer->name,
+                'phone'          => $customer->phone,
                 'custom_fields' => [
-                    'note' => $customer->customer_note
+                    'note' => $customer->note
                 ]
             ]);
         }else{
@@ -43,7 +42,7 @@ class OrderController extends Controller
         foreach ($order_detail as $index => $item){
             try {
                 //code...
-                $invoice->addItem((new InvoiceItem())->title($item->product->name)->pricePerUnit($item->product->price));
+                $invoice->addItem((new InvoiceItem())->title($item->product->name)->pricePerUnit($item->product->price)->quantity($item->quantity));
             } catch (\Throwable $th) {
                 throw $th;
             }
