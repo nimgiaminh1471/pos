@@ -47,6 +47,11 @@ class OrderController extends Controller
                 throw $th;
             }
         }
+
+        if($order->discount_value > 0) {
+            $discount_type = $order->discount_type == 'percent' ? true : false;
+            $invoice->totalDiscount($order->discount_value, $discount_type);
+        }
         
         return response()->streamDownload(function () use($invoice) {
             echo  $invoice->stream();

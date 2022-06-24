@@ -140,6 +140,16 @@
                 <!-- payment info -->
                 <div class="select-none h-auto w-full text-center pt-3 pb-4 px-4">
                     <div class="flex mb-3 font-semibold text-blue-gray-700">
+                        <div class="text-left py-4 relative">Giảm giá: </div>
+                        <div class="flex-grow text-right py-4 relative">
+                            <input wire:model="discount_value" type="number" value="" class="bg-white rounded-lg text-center shadow focus:outline-none focus:shadow-lg text-sm">
+                            <select wire:model="discount_type" class="bg-white rounded-lg text-center shadow focus:outline-none focus:shadow-lg text-sm">
+                                <option value="percent">%</option>
+                                <option value="total">đơn hàng</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex mb-3 font-semibold text-blue-gray-700">
                         <div class="text-left py-4 relative">Khách hàng: </div>
                         <div class="flex-grow text-right py-4 relative">{{ $customer_name }}</div>
                     </div>
@@ -149,17 +159,29 @@
                     </div>
                     <div class="flex flex-row">
                         <div class="basis-1/3">
-                            <button wire:click="payment('momo')" class="text-white rounded-2xl text-lg w-full py-3 focus:outline-none bg-red-500 hover:bg-red-600">
+                            <button 
+                            @if($customer == 0)
+                            onclick="confirm('Thanh toán cho khách vãng lai?') || event.stopImmediatePropagation()"
+                            @endif
+                            wire:click="payment('momo')" class="text-white rounded-2xl text-lg w-full py-3 focus:outline-none bg-red-500 hover:bg-red-600">
                                 MOMO
                             </button>
                         </div>
                         <div class="basis-1/3">
-                            <button wire:click="payment('transfer')" class="text-white rounded-2xl text-lg w-full py-3 focus:outline-none bg-cyan-500 hover:bg-cyan-600">
+                            <button 
+                            @if($customer == 0)
+                            onclick="confirm('Thanh toán cho khách vãng lai?') || event.stopImmediatePropagation()"
+                            @endif
+                            wire:click="payment('transfer')" class="text-white rounded-2xl text-lg w-full py-3 focus:outline-none bg-cyan-500 hover:bg-cyan-600">
                                 BANKING
                             </button>
                         </div>
                         <div class="basis-1/3">
-                            <button wire:click="payment('cash')" class="text-white rounded-2xl text-lg w-full py-3 focus:outline-none bg-green-500 hover:bg-green-600">
+                            <button 
+                            @if($customer == 0)
+                            onclick="confirm('Thanh toán cho khách vãng lai?') || event.stopImmediatePropagation()"
+                            @endif
+                            wire:click="payment('cash')" class="text-white rounded-2xl text-lg w-full py-3 focus:outline-none bg-green-500 hover:bg-green-600">
                                 TIỀN MẶT
                             </button>
                         </div>

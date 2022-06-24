@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SumaryController;
 use App\Http\Livewire\CustomerCrud;
 use App\Http\Livewire\OrderCrud;
 use App\Http\Livewire\Pos;
@@ -35,5 +36,6 @@ Route::middleware([
     Route::get('products', ProductCrud::class)->name('product');
     Route::get('orders', OrderCrud::class)->name('order');
     Route::get('customers', CustomerCrud::class)->name('customer');
-    ROute::get('order/print/{id}', [OrderController::class, 'printOrder'])->name('printOrder');
+    Route::get('order/print/{id}', [OrderController::class, 'printOrder'])->name('printOrder');
+    Route::get('summary', [SumaryController::class, 'summary'])->name('summary');
 });

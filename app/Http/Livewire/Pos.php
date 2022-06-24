@@ -21,6 +21,8 @@ class Pos extends Component
     public $customer_name = 'Khách vãng lai';
     public $customer_phone = '';
     public $customer_note = null;
+    public $discount_value = 0;
+    public $discount_type = 'percent';
 
     public function render()
     {
@@ -38,6 +40,13 @@ class Pos extends Component
                 }
             }
         }
+        if($this->discount_value > 0){
+            if($this->discount_type == 'percent'){
+                $this->total = round($this->total * (1 - $this->discount_value / 100), 0);
+            }else{
+                $this->total = round($this->total - $this->discount_value, 0);
+            }
+        }
         $this->cart = $cart;
         if(session('customer')){
             $this->customer = session('customer');
@@ -47,6 +56,9 @@ class Pos extends Component
                 $this->customer_phone = $cus->phone;
                 $this->customer_note = $cus->note;
             }
+        }else{
+            $this->customer = 0;
+            $this->customer_name = 'Khách vãng lai';
         }
         return view('livewire.pos')->layout('layouts.pos');
     }
@@ -90,6 +102,10 @@ class Pos extends Component
             $order->total = $this->total;
             $order->payment_method = $payment_method;
             $order->customer_id = $this->customer;
+            if($this->discount_value > 0) {
+                $order->discount_value = $this->discount_value;
+                $order->discount_type = $this->discount_type;
+            }
             $order->save();
 
             $customer = new Buyer([
@@ -114,10 +130,18 @@ class Pos extends Component
                 $order_detail->save();
                 $invoice->addItem((new InvoiceItem())->title($item['name'])->pricePerUnit($item['price'])->quantity($item['quantity']));
             }
+
+            if($this->discount_value > 0) {
+                $discount_type = $this->discount_type == 'percent' ? true : false;
+                $invoice->totalDiscount($this->discount_value, $discount_type);
+            }
             
             session()->forget('cart');
             session()->forget('customer');
             $this->customer = 0;
+            $this->discount_value = 0;
+            $this->discount_type = 'percent';
+        
             return response()->streamDownload(function () use($invoice) {
                 echo  $invoice->stream();
             }, $invoice->getSerialNumber() . '_' . Str::slug($this->customer_name) . '.pdf');

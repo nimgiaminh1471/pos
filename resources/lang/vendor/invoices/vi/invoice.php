@@ -23,7 +23,7 @@ return [
     'discount'               => 'Discount',
     'tax'                    => 'Tax',
     'sub_total'              => 'Tổng tiền',
-    'total_discount'         => 'Total Discount',
+    'total_discount'         => 'Giảm giá',
     'taxable_amount'         => 'Taxable amount',
     'total_taxes'            => 'Total taxes',
     'tax_rate'               => 'Tax rate',

@@ -105,17 +105,29 @@
                 </div>
                 <div class="flex flex-row">
                     <div class="basis-1/3">
-                        <button wire:click="payment('momo')" class="text-white rounded-2xl text-lg w-full py-3 focus:outline-none bg-red-500 hover:bg-red-600">
+                        <button 
+                        @if($customer == 0)
+                        onclick="confirm('Thanh toán cho khách vãng lai?') || event.stopImmediatePropagation()"
+                        @endif
+                        wire:click="payment('momo')" class="text-white rounded-2xl text-lg w-full py-3 focus:outline-none bg-red-500 hover:bg-red-600">
                             MOMO
                         </button>
                     </div>
                     <div class="basis-1/3">
-                        <button wire:click="payment('transfer')" class="text-white rounded-2xl text-lg w-full py-3 focus:outline-none bg-cyan-500 hover:bg-cyan-600">
+                        <button 
+                        @if($customer == 0)
+                        onclick="confirm('Thanh toán cho khách vãng lai?') || event.stopImmediatePropagation()"
+                        @endif
+                        wire:click="payment('transfer')" class="text-white rounded-2xl text-lg w-full py-3 focus:outline-none bg-cyan-500 hover:bg-cyan-600">
                             BANKING
                         </button>
                     </div>
                     <div class="basis-1/3">
-                        <button wire:click="payment('cash')" class="text-white rounded-2xl text-lg w-full py-3 focus:outline-none bg-green-500 hover:bg-green-600">
+                        <button 
+                        @if($customer == 0)
+                        onclick="confirm('Thanh toán cho khách vãng lai?') || event.stopImmediatePropagation()"
+                        @endif
+                        wire:click="payment('cash')" class="text-white rounded-2xl text-lg w-full py-3 focus:outline-none bg-green-500 hover:bg-green-600">
                             TIỀN MẶT
                         </button>
                     </div>

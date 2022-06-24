@@ -37,10 +37,33 @@ class OrderTable extends DataTableComponent
             Column::make("Tổng đơn hàng", "total")
                 ->sortable()
                 ->searchable()
-                ->format(fn ($value, $row, Column $column) => number_format($row->total, 0, ',', '.'))
+                ->format(function ($value, $row, Column $column){
+                    $order = Order::find($row->id);
+                    $count = $row->total;
+                    if($order->discount_value > 0){
+                        if($order->discount_type == "percent"){
+                            $count = round($count * (1 - $order->discount_value / 100), 0);
+                        }else{
+                            $count = round($count - $order->discount_value, 0);
+                        }
+                    }
+                    return number_format($count, 0, ',', '.');
+                })
                 ->html()
                 ->footer(function($rows) {
-                    return 'Tổng tiền: ' . number_format($rows->sum('total'), 0, ',', '.');
+                    $count = 0;
+                    foreach($rows as $row){
+                        $order_count = 0;
+                        $order = Order::find($row->id);
+                        $order_count = $order->total;
+                        if($order->discount_type == "percent"){
+                            $order_count = round($order_count * (1 - $order->discount_value / 100), 0);
+                        }else{
+                            $order_count = round($order_count - $order->discount_value, 0);
+                        }
+                        $count+=$order_count;
+                    }
+                    return 'Tổng tiền: ' . number_format($count, 0, ',', '.');
                 }),
             Column::make("Số lượng sản phẩm", "id")
                 ->format(
@@ -64,7 +87,7 @@ class OrderTable extends DataTableComponent
                             $count += $item->quantity;
                         }
                     }
-                    return 'Tổng số lượng sản phẩm: ' . number_format($count, 0, ',', '.');
+                    return 'Tổng số lượng sản phẩm: ' . $count;
                 }),
             Column::make("Phương thức thanh toán", 'payment_method')
                 ->sortable()
