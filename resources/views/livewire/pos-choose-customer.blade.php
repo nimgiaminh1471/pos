@@ -6,13 +6,13 @@
         <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
             <form>
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div class="">
+                    <div class="" wire:ignore>
                         <div class="mb-4">
                             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Chọn khách hàng</label>
-                            <select class="form-control" id="select2-dropdown" wire:model="customer" wire:change="cusChange">
+                            <select class="form-control" id="select2-dropdown">
                                 <option value="0">Khách vãng lai</option>
                                 @foreach($customers as $customer_data)
-                                <option value="{{ $customer_data->id }}">{{ $customer_data->name }} - {{ $customer_data->phone }}</option>
+                                <option {{ ($customer_data->id == $customer) ? 'selected' : '' }} value="{{ $customer_data->id }}">{{ $customer_data->name }} - {{ $customer_data->phone }}</option>
                                 @endforeach
                             </select>
                             @error('customer') <span class="text-red-500">{{ $message }}</span>@enderror
@@ -29,4 +29,11 @@
             </form>
         </div>
     </div>
+    <script>
+        $('#select2-dropdown').select2().on('change', function(){
+            // console.log($(this).val());
+            @this.set('state.customer', $(this).val());
+            
+        })
+    </script>
 </div>

@@ -24,7 +24,7 @@ class SumaryController extends Controller
             array_push($customer['data'], $value->purchase_total);
         }
 
-        $topProduct = OrderDetail::with('product')->addSelect(DB::raw('COUNT(*) as total, product_id'))->whereMonth('created_at', date('m'))
+        $topProduct = OrderDetail::with('product')->addSelect(DB::raw('SUM(quantity) as total, product_id'))->whereMonth('created_at', date('m'))
         ->groupBy('product_id')->take(10)
         ->orderBy('total', 'DESC')->get();
         $product['label'] = [];

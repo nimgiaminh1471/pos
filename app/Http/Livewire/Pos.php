@@ -24,6 +24,10 @@ class Pos extends Component
     public $discount_value = 0;
     public $discount_type = 'percent';
 
+    public $state = [
+        'customer' => 0
+    ];
+
     public function render()
     {
         $this->products = Product::all();
@@ -157,12 +161,15 @@ class Pos extends Component
         $this->isModalOpen = false;
     }
 
-    public function cusChange(){
+    public function cusChange($customer) {
+        // dd($customer);
         session()->put('customer', $this->customer);
     }
 
     public function choose()
     {
         $this->isModalOpen = false;
+        session()->put('customer', $this->state['customer']);
+        // dd($this->state);
     }
 }

@@ -40,13 +40,13 @@ class CustomerCrud extends Component
         if($this->isEdit){
             $this->validate([
                 'name' => 'required',
-                'phone' => 'required',
+                'phone' => 'required|unique:customers,phone,' . $this->customer_id,
                 'note' => 'sometimes',
             ]);
         }else{
             $this->validate([
                 'name' => 'required',
-                'phone' => 'required',
+                'phone' => 'required|unique:customers',
                 'note' => 'sometimes',
             ]);
         }
@@ -58,7 +58,7 @@ class CustomerCrud extends Component
 
         if($this->isEdit){
             Customer::updateOrCreate(['id' => $this->customer_id], $data);
-            session()->flash('message', $this->customer_id ? 'Customer updated.' : 'Customer created.');
+            session()->flash('message', $this->customer_id ? 'Customer updated.' : 'Customer edited.');
             $this->closeModalPopover();
             $this->resetCreateForm();
         }else{
