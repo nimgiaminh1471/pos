@@ -10,6 +10,9 @@ class CustomerCrud extends Component
     public $customers, $name, $phone, $note, $customer_id;
     public $isModalOpen = 0;
     public $isEdit = false;
+
+    protected $listeners = ['showEdit' => 'edit', 'delete_customer' => 'delete'];
+
     public function render()
     {
         $this->customers = Customer::all();
@@ -61,6 +64,7 @@ class CustomerCrud extends Component
             session()->flash('message', $this->customer_id ? 'Customer updated.' : 'Customer edited.');
             $this->closeModalPopover();
             $this->resetCreateForm();
+            $this->emit('refresh_customer');
         }else{
             Customer::create($data);
             session()->flash('message', $this->customer_id ? 'Customer updated.' : 'Customer created.');
@@ -85,5 +89,6 @@ class CustomerCrud extends Component
     {
         Customer::find($id)->delete();
         session()->flash('message', 'Customer deleted.');
+        $this->emit('refresh_customer');
     }
 }

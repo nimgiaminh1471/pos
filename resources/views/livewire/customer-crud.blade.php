@@ -21,7 +21,8 @@
             @if($isModalOpen)
             @include('livewire.customer-create')
             @endif
-            <table class="table-fixed w-full">
+            <livewire:customer-table />
+            <!-- <table class="table-fixed w-full">
                 <thead>
                     <tr class="bg-gray-100">
                         <th class="px-4 py-2 w-20">Số ID</th>
@@ -47,7 +48,7 @@
                     </tr>
                     @endforeach
                 </tbody>
-            </table>
+            </table> -->
         </div>
     </div>
 </div>

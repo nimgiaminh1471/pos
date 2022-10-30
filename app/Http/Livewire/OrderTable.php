@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Order;
-use App\Models\Product;
 use Rappasoft\LaravelLivewireTables\Views\Filters\MultiSelectFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\DateFilter;
 use Illuminate\Database\Eloquent\Builder;
@@ -27,6 +26,7 @@ class OrderTable extends DataTableComponent
             ->setHideBulkActionsWhenEmptyEnabled();
         $this->setDefaultSort('id', 'desc');
         $this->setUseHeaderAsFooterStatus(false);
+        $this->setPerPageAccepted([100, 200, 300]);
     }
 
     public function columns(): array
@@ -40,31 +40,16 @@ class OrderTable extends DataTableComponent
                 ->format(function ($value, $row, Column $column){
                     $order = Order::find($row->id);
                     $count = $row->total;
-                    if($order->discount_value > 0){
-                        if($order->discount_type == "percent"){
-                            $count = round($count * (1 - $order->discount_value / 100), 0);
-                        }else{
-                            $count = round($count - $order->discount_value, 0);
-                        }
-                    }
+                    // if($order->discount_value > 0){
+                    //     if($order->discount_type == "percent"){
+                    //         $count = round($count * (1 - $order->discount_value / 100), 0);
+                    //     }else{
+                    //         $count = round($count - $order->discount_value, 0);
+                    //     }
+                    // }
                     return number_format($count, 0, ',', '.');
                 })
-                ->html()
-                ->footer(function($rows) {
-                    $count = 0;
-                    foreach($rows as $row){
-                        $order_count = 0;
-                        $order = Order::find($row->id);
-                        $order_count = $order->total;
-                        if($order->discount_type == "percent"){
-                            $order_count = round($order_count * (1 - $order->discount_value / 100), 0);
-                        }else{
-                            $order_count = round($order_count - $order->discount_value, 0);
-                        }
-                        $count+=$order_count;
-                    }
-                    return 'Tổng tiền: ' . number_format($count, 0, ',', '.');
-                }),
+                ->html(),
             Column::make("Số lượng sản phẩm", "id")
                 ->format(
                     function($value, $row, Column $column) {
@@ -77,18 +62,7 @@ class OrderTable extends DataTableComponent
                         return $count;
                     }    
                 )
-                ->html()
-                ->footer(function($rows) {
-                    $count = 0;
-                    foreach($rows as $row){
-                        $order = Order::find($row->id);
-                        $order_detail = $order->order_detail;
-                        foreach($order_detail as $item){
-                            $count += $item->quantity;
-                        }
-                    }
-                    return 'Tổng số lượng sản phẩm: ' . $count;
-                }),
+                ->html(),
             Column::make("Phương thức thanh toán", 'payment_method')
                 ->sortable()
                 ->searchable()
