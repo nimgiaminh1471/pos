@@ -69,6 +69,10 @@ class OrderTable extends DataTableComponent
                 ->format(fn ($value, $row, Column $column) => getMethodName($row->payment_method)),
             Column::make("Ngày mua hàng", "created_at")
                 ->sortable(),
+            Column::make("Người mua hàng", "customer.name")
+                ->searchable(function (Builder $query, $searchTerm) {
+                    $query->orWhere('customers.phone', 'LIKE', '%' . $searchTerm . '%');
+                }),
             Column::make("In hóa đơn", 'id')
                 ->format(
                     fn($value, $row, Column $column) => '<a class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600" href="'. route('printOrder', ['id' => $row->id]) .'">In hóa đơn</a>'
