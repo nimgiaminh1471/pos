@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,6 +32,35 @@ class SumaryController extends Controller
         $total_products = OrderDetail::whereMonth('created_at', $dates[1])->whereYear('created_at', $dates[0])->get()->sum('quantity');
         $total_customers = Customer::whereMonth('created_at', $dates[1])->whereYear('created_at', $dates[0])->get()->count();
 
-        return view('sumary.sumary', compact('topCustomer', 'topProduct', 'date', 'total', 'total_products', 'total_customers'));
+
+        $months = [1,2,3,4,5,6,7,8,9,10,11,12];
+        $dataMonths = [];
+        foreach($months as $month){
+            $customerChartMonth = Order::with('customer')->whereMonth('created_at', $month)->whereYear('created_at', $dates[0])->sum('total');
+            $dataMonths['Tháng ' . $month] = $customerChartMonth;
+        }
+
+        $days = $this->getDayArray($dates[1], $dates[0]);
+
+        $dataDays = [];
+        foreach($days as $day){
+            $customerChartDay = Order::with('customer')->whereDate('created_at', date($dates[0] . "-" . $dates[1] . "-" . $day))->sum('total');
+            $dataDays['Ngày ' . $day] = $customerChartDay;
+        }
+
+        return view('sumary.sumary', compact('topCustomer', 'topProduct', 'date', 'total', 'total_products', 'total_customers', 'dataMonths', 'dataDays'));
+    }
+
+    public function getDayArray($month, $year){
+        $date = $year . "-". $month ."-1";
+        $date = new DateTime($date);
+        $date->modify('last day of');
+
+        $last = $date->format('d');
+        $day = [];
+        for($i = 1; $i <= $last; $i++){
+            array_push($day, $i);
+        }
+        return $day;
     }
 }

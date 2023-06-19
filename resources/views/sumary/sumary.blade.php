@@ -69,6 +69,21 @@
     <div class="pt-8 max-w-7xl mx-auto sm:px-6 lg:px-8 flex-grow flex">
         <div class="w-1/2 flex-col px-1">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
+                <h2 class="text-center">CHART ORDER BY MONTHS</h2>
+                <canvas id="customerChart"></canvas>
+            </div>
+        </div>
+        <div class="w-1/2 flex-col px-1">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
+                <h2 class="text-center">CHART ORDER BY DAY</h2>
+                <canvas id="customerChartDay"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-8 max-w-7xl mx-auto sm:px-6 lg:px-8 flex-grow flex">
+        <div class="w-1/2 flex-col px-1">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
                 <h2 class="text-center">BEST SELL</h2>
                 <table class="table-fixed w-full">
                     <thead>
@@ -114,4 +129,59 @@
             </div>
         </div>
     </div>
+    <x-slot name="script">
+        @javascript('customerChartMonthY',  array_values($dataMonths))
+        @javascript('customerChartMonthX',  array_keys($dataMonths))
+        <script>
+            var dynamicColors = function() {
+                var r = Math.floor(Math.random() * 255);
+                var g = Math.floor(Math.random() * 255);
+                var b = Math.floor(Math.random() * 255);
+                return "rgb(" + r + "," + g + "," + b + ")";
+            };
+        </script>
+        <script>
+            var xValues = customerChartMonthX;
+            var yValues = customerChartMonthY;
+
+            var barColors = [];
+            for (var i in yValues) {
+                barColors.push(dynamicColors());
+            }
+            const customerChart = new Chart("customerChart", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues,
+                        label: 'Order',
+                    }]
+                },
+            });
+        </script>
+
+        @javascript('customerChartDayY',  array_values($dataDays))
+        @javascript('customerChartDayX',  array_keys($dataDays))
+        <script>
+            var xValues = customerChartDayX;
+            var yValues = customerChartDayY;
+
+            var barColors = [];
+            for (var i in yValues) {
+                barColors.push(dynamicColors());
+            }
+            const customerChartDay = new Chart("customerChartDay", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues,
+                        label: 'Order',
+                    }]
+                },
+            });
+        </script>
+    </x-slot>
 </x-app-layout>
