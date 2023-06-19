@@ -130,8 +130,10 @@
         </div>
     </div>
     <x-slot name="script">
-        @javascript('customerChartMonthY',  array_values($dataMonths))
-        @javascript('customerChartMonthX',  array_keys($dataMonths))
+        <script>
+            let customerChartMonthY = [{!! implode(',', array_values($dataMonths)) !!}];
+            let customerChartMonthX = [{!! "'". implode("','", array_keys($dataMonths)) . "'" !!}];
+        </script>
         <script>
             var dynamicColors = function() {
                 var r = Math.floor(Math.random() * 255);
@@ -160,9 +162,10 @@
                 },
             });
         </script>
-
-        @javascript('customerChartDayY',  array_values($dataDays))
-        @javascript('customerChartDayX',  array_keys($dataDays))
+        <script>
+            let customerChartDayY = [{!! implode(',', array_values($dataDays)) !!}];
+            let customerChartDayX = [{!! "'". implode("','", array_keys($dataDays)) . "'" !!}];
+        </script>
         <script>
             var xValues = customerChartDayX;
             var yValues = customerChartDayY;
