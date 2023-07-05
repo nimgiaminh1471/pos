@@ -56,9 +56,13 @@ class Pos extends Component
             $this->customer = session('customer');
             if($this->customer != 0){
                 $cus = Customer::where('id', $this->customer)->first();
-                $this->customer_name = $cus->name;
-                $this->customer_phone = $cus->phone;
-                $this->customer_note = $cus->note;
+                if($cus){
+                    $this->customer_name = $cus->name;
+                    $this->customer_phone = $cus->phone;
+                    $this->customer_note = $cus->note;
+                }else{
+                    session()->forget('customer');
+                }
             }
         }else{
             $this->customer = 0;
