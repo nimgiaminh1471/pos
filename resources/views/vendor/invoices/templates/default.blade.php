@@ -146,7 +146,7 @@
         @endphp
         <div style="position: absolute; top: 180px; right: 0px; text-align: center">
             <img src="data:image/png;base64,{{ $b64image }}" alt="" height="120">
-            <p>Scan để thanh toán</p>
+            <p style="font-size: 12px">Scan để thanh toán</p>
         </div>
 
         <table class="table mt-5">
