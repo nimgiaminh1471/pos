@@ -14,7 +14,7 @@ class ProductCrud extends Component
     public $isEdit = false;
     public function render()
     {
-        $this->products = Product::all();
+        $this->products = Product::orderBy('order')->get();
         return view('livewire.product-crud');
     }
     public function create()
@@ -31,20 +31,21 @@ class ProductCrud extends Component
     {
         $this->isModalOpen = false;
     }
-    private function resetCreateForm(){
+    private function resetCreateForm()
+    {
         $this->name = '';
         $this->image = '';
         $this->price = '';
     }
-    
+
     public function store()
     {
-        if($this->isEdit){
+        if ($this->isEdit) {
             $this->validate([
                 'name' => 'required',
                 'price' => 'required',
             ]);
-        }else{
+        } else {
             $this->validate([
                 'name' => 'required',
                 'image' => 'required|image|max:1024',
@@ -56,16 +57,16 @@ class ProductCrud extends Component
             'price' => $this->price,
         ];
 
-        if($this->image && !is_string($this->image)){
-            $image = $this->image->store('photos','public');
+        if ($this->image && !is_string($this->image)) {
+            $image = $this->image->store('photos', 'public');
             $data['image'] = $image;
         }
-        if($this->isEdit){
+        if ($this->isEdit) {
             Product::updateOrCreate(['id' => $this->product_id], $data);
             session()->flash('message', $this->product_id ? 'Product updated.' : 'Product created.');
             $this->closeModalPopover();
             $this->resetCreateForm();
-        }else{
+        } else {
             Product::create($data);
             session()->flash('message', $this->product_id ? 'Product updated.' : 'Product created.');
             $this->closeModalPopover();
@@ -80,13 +81,24 @@ class ProductCrud extends Component
         $this->name = $product->name;
         $this->image = $product->image;
         $this->price = $product->price;
-    
+
         $this->openModalPopover();
     }
-    
+
     public function delete($id)
     {
         Product::find($id)->delete();
         session()->flash('message', 'Product deleted.');
+    }
+
+    public function updateProductOrder($data)
+    {
+        foreach($data as $product){
+            $productData = Product::find($product['value']);
+            if($productData){
+                $productData->order = $product['order'];
+                $productData->save();
+            }
+        }
     }
 }

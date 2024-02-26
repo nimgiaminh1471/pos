@@ -31,9 +31,9 @@
                         <th class="px-4 py-2">Hành động</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody wire:sortable="updateProductOrder" wire:sortable.options="{ animation: 100 }">
                     @foreach($products as $product)
-                    <tr>
+                    <tr wire:sortable.item="{{ $product->id }}" wire:key="product-{{ $product->id }}">
                         <td class="border px-4 py-2">{{ $product->id }}</td>
                         <td class="border px-4 py-2">{{ $product->name }}</td>
                         <td class="border px-4 py-2"><image width="100" src="{{ asset('storage/' .$product->image) }}"></td>

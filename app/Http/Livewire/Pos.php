@@ -30,7 +30,7 @@ class Pos extends Component
 
     public function render()
     {
-        $this->products = Product::all();
+        $this->products = Product::orderBy('order')->get();
         $this->customers = Customer::all();
         $cart = session('cart', []);
         $this->total = 0;
