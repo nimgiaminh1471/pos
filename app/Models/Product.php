@@ -10,5 +10,5 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['id', 'name', 'image', 'price'];
+    protected $fillable = ['id', 'name', 'image', 'price', 'order'];
 }

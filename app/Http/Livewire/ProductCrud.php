@@ -55,6 +55,7 @@ class ProductCrud extends Component
         $data = [
             'name' => $this->name,
             'price' => $this->price,
+            'order' => 0
         ];
 
         if ($this->image && !is_string($this->image)) {
