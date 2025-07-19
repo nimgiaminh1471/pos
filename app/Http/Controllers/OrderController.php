@@ -33,12 +33,7 @@ class OrderController extends Controller
             ]);
         }
 
-        $sequence = $order->id;
-        // reset to start from 1 if sequence is greater than 4435
-        if($sequence > 4435){
-            $greater_than_4435 = $sequence - 4435;
-            $sequence = 1 + $greater_than_4435;
-        }
+        $sequence = $order->getOrderNumber();
         $invoice = Invoice::make()
             ->sequence($sequence)
             // ->setCustomData(['payment_method' => $payment_method])

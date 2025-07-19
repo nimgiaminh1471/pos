@@ -123,9 +123,9 @@ class Pos extends Component
                     'note' => $this->customer_note
                 ]
             ]);
-    
+            $sequence = $order->getOrderNumber();
             $invoice = Invoice::make()
-                ->sequence($order->id)
+                ->sequence($sequence)
                 // ->setCustomData(['payment_method' => $payment_method])
                 ->logo(public_path('images/logo.png'))
                 ->buyer($customer);
