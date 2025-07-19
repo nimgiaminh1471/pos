@@ -15,7 +15,7 @@ return [
     'address'                => 'Địa chỉ',
     'code'                   => 'Code',
     'vat'                    => 'VAT code',
-    'phone'                  => 'Số điện thoại',
+    'phone'                  => 'SDT',
     'description'            => 'Nội dung',
     'units'                  => 'Đơn vị tính',
     'quantity'               => 'Số lượng',
