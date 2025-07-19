@@ -144,7 +144,7 @@
             );  
             $b64image = base64_encode(file_get_contents('https://img.vietqr.io/image/VCB-9777729933-qr_only.png?amount='. $invoice->total_amount . '&addInfo=CK&accountName=VUONG%20MINH%20QUAN', false, stream_context_create($arrContextOptions)))
         @endphp
-        <div style="position: absolute; top: 200px; right: 0px; text-align: center">
+        <div style="position: absolute; top: 240px; right: 0px; text-align: center">
             <img src="data:image/png;base64,{{ $b64image }}" alt="" height="200">
             <p style="font-size: 12px">Scan để thanh toán</p>
         </div>
