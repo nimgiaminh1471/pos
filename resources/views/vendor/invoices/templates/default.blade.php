@@ -126,7 +126,7 @@
                 color: #6B7280;
             }
             .buyer-name{
-                font-size: 20px;
+                font-size: 25px;
             }
             .buyer-phone {
                 font-size: 20px;
