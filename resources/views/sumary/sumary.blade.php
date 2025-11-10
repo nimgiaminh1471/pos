@@ -57,7 +57,7 @@
                 <div class="bg-gradient-to-b from-indigo-200 to-indigo-100 border-b-4 border-indigo-500 rounded-lg shadow-xl p-5">
                     <div class="flex flex-row items-center">
                         <div class="flex-1 text-right md:text-center">
-                            <h5 class="font-bold uppercase text-gray-400">Tổng doanh thu đặc biệt</h5>
+                            <h5 class="font-bold uppercase text-gray-400">Doanh thu đặc biệt</h5>
                             <h3 class="font-bold text-3xl text-gray-600">{{ number_format($total_special_revenue) }}</h3>
                         </div>
                     </div>
