@@ -28,6 +28,7 @@
                         <th class="px-4 py-2">Tên sản phẩm</th>
                         <th class="px-4 py-2">Hình ảnh</th>
                         <th class="px-4 py-2">Giá</th>
+                        <th class="px-4 py-2">Loại doanh thu</th>
                         <th class="px-4 py-2">Hành động</th>
                     </tr>
                 </thead>
@@ -38,6 +39,7 @@
                         <td class="border px-4 py-2">{{ $product->name }}</td>
                         <td class="border px-4 py-2"><image width="100" src="{{ asset('storage/' .$product->image) }}"></td>
                         <td class="border px-4 py-2">{{ number_format($product->price, 0, ',', '.') }}</td>
+                        <td class="border px-4 py-2">{{ $product->revenue_type == 'normal' ? 'Bình thường' : 'Đặc biệt' }}</td>
                         <td class="border px-4 py-2">
                             <button wire:click="edit({{ $product->id }})"
                                 class="flex px-4 py-2 bg-gray-500 text-gray-900 cursor-pointer">Chỉnh sửa</button>

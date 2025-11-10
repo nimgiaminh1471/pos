@@ -9,7 +9,7 @@ use Livewire\WithFileUploads;
 class ProductCrud extends Component
 {
     use WithFileUploads;
-    public $products, $name, $image, $price, $product_id;
+    public $products, $name, $image, $price, $product_id, $revenue_type;
     public $isModalOpen = 0;
     public $isEdit = false;
     public function render()
@@ -36,6 +36,7 @@ class ProductCrud extends Component
         $this->name = '';
         $this->image = '';
         $this->price = '';
+        $this->revenue_type = '';
     }
 
     public function store()
@@ -44,18 +45,21 @@ class ProductCrud extends Component
             $this->validate([
                 'name' => 'required',
                 'price' => 'required',
+                'revenue_type' => 'required|in:normal,special',
             ]);
         } else {
             $this->validate([
                 'name' => 'required',
                 'image' => 'required|image|max:1024',
                 'price' => 'required',
+                'revenue_type' => 'required|in:normal,special',
             ]);
         }
         $data = [
             'name' => $this->name,
             'price' => $this->price,
-            'order' => 0
+            'order' => 0,
+            'revenue_type' => $this->revenue_type
         ];
 
         if ($this->image && !is_string($this->image)) {
@@ -82,7 +86,7 @@ class ProductCrud extends Component
         $this->name = $product->name;
         $this->image = $product->image;
         $this->price = $product->price;
-
+        $this->revenue_type = $product->revenue_type;
         $this->openModalPopover();
     }
 
