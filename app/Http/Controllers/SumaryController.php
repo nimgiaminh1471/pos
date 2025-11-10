@@ -48,7 +48,14 @@ class SumaryController extends Controller
             $dataDays['Ngày ' . $day] = $customerChartDay;
         }
 
-        return view('sumary.sumary', compact('topCustomer', 'topProduct', 'date', 'total', 'total_products', 'total_customers', 'dataMonths', 'dataDays'));
+        $total_special_revenue = OrderDetail::join('products', 'order_details.product_id', '=', 'products.id')
+        ->whereMonth('order_details.created_at', $dates[1])
+        ->whereYear('order_details.created_at', $dates[0])
+        ->where('order_details.product_id', '<>', 0)
+        ->where('products.revenue_type', 'special')
+        ->sum(DB::raw('order_details.price * order_details.quantity'));
+
+        return view('sumary.sumary', compact('topCustomer', 'topProduct', 'date', 'total', 'total_products', 'total_customers', 'dataMonths', 'dataDays', 'total_special_revenue'));
     }
 
     public function getDayArray($month, $year){
